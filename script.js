@@ -291,8 +291,7 @@ whatsappButton.addEventListener("click", () => {
 
   const whatsappURL =
     "https://wa.me/" +
-    BUSINESS_WHATSAPP_NUMBER +
-    "?text=" +
+    const BUSINESS_WHATSAPP_NUMBER = "919336243712";
     encodeURIComponent(message);
 
   window.open(
