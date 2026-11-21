@@ -271,50 +271,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // =====================================
-  // WHATSAPP CONTACT
-  // =====================================
+ // =====================================
+// WHATSAPP CONTACT
+// =====================================
 
-  /*
-    IMPORTANT:
-    Replace the placeholder below with the
-    owner's real WhatsApp number.
+const BUSINESS_WHATSAPP_NUMBER = "919336243712";
 
-    Format:
-    Country code + phone number
-    Example format for India: 91093362 43712
-
-    Do not include:
-    + symbol, spaces or hyphens.
-  */
-
-  const BUSINESS_WHATSAPP_NUMBER = "";
-
-  whatsappButton.addEventListener("click", () => {
-    if (!BUSINESS_WHATSAPP_NUMBER) {
-      alert(
-        "The owner's WhatsApp number has not been added yet. Please contact the business directly."
-      );
-
-      return;
-    }
-
-    const message =
-      "Hello Game Station Mirzapur! I would like to know more about your gaming services and current pricing.";
-
-    const whatsappURL =
-      "https://wa.me/" +
-      BUSINESS_WHATSAPP_NUMBER +
-      "?text=" +
-      encodeURIComponent(message);
-
-    window.open(
-      whatsappURL,
-      "_blank",
-      "noopener,noreferrer"
+whatsappButton.addEventListener("click", () => {
+  if (!BUSINESS_WHATSAPP_NUMBER) {
+    alert(
+      "The owner's WhatsApp number has not been added yet. Please contact the business directly."
     );
-  });
 
+    return;
+  }
+
+  const message =
+    "Hello Game Station Mirzapur! I would like to know more about your gaming services and current pricing.";
+
+  const whatsappURL =
+    "https://wa.me/" +
+    BUSINESS_WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(message);
+
+  window.open(
+    whatsappURL,
+    "_blank",
+    "noopener,noreferrer"
+  );
+});
   // =====================================
   // GALLERY LIGHTBOX
   // =====================================
