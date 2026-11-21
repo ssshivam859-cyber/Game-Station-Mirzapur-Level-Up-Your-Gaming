@@ -277,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const BUSINESS_WHATSAPP_NUMBER = "919336243712";
 
-function openBusinessWhatsApp(message = "") {
+function openBusinessWhatsApp(message = "919336243712") {
   const defaultMessage =
     "Hello Game Station Mirzapur! I would like to know more about your gaming services and current pricing.";
 
@@ -286,7 +286,7 @@ function openBusinessWhatsApp(message = "") {
   const whatsappURL =
     "https://wa.me/" +
     BUSINESS_WHATSAPP_NUMBER +
-    "?text=" +
+    "919336243712" +
     encodeURIComponent(whatsappMessage);
 
   window.open(whatsappURL, "_blank", "noopener,noreferrer");
