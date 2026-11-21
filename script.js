@@ -272,34 +272,45 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
  // =====================================
-// WHATSAPP CONTACT
+// WHATSAPP CONTACT - GAME STATION MIRZAPUR
 // =====================================
 
 const BUSINESS_WHATSAPP_NUMBER = "919336243712";
 
-whatsappButton.addEventListener("click", () => {
-  if (!BUSINESS_WHATSAPP_NUMBER) {
-    alert(
-      "The owner's WhatsApp number has not been added yet. Please contact the business directly."
-    );
-
-    return;
-  }
-
-  const message =
+function openBusinessWhatsApp(message = "") {
+  const defaultMessage =
     "Hello Game Station Mirzapur! I would like to know more about your gaming services and current pricing.";
+
+  const whatsappMessage = message || defaultMessage;
 
   const whatsappURL =
     "https://wa.me/" +
-    const BUSINESS_WHATSAPP_NUMBER = "919336243712";
-    encodeURIComponent(message);
+    BUSINESS_WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(whatsappMessage);
 
-  window.open(
-    whatsappURL,
-    "_blank",
-    "noopener,noreferrer"
-  );
-});
+  window.open(whatsappURL, "_blank", "noopener,noreferrer");
+}
+
+// Main WhatsApp contact button
+if (whatsappButton) {
+  whatsappButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    openBusinessWhatsApp();
+  });
+}
+
+// Floating WhatsApp button
+const whatsappFloat = document.getElementById("whatsappFloat");
+
+if (whatsappFloat) {
+  whatsappFloat.addEventListener("click", function (event) {
+    event.preventDefault();
+    openBusinessWhatsApp(
+      "Hello Game Station Mirzapur! I would like to book a gaming session."
+    );
+  });
+}
   // =====================================
   // GALLERY LIGHTBOX
   // =====================================
