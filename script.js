@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     Format:
     Country code + phone number
-    Example format for India: 9193362 43712
+    Example format for India: 91093362 43712
 
     Do not include:
     + symbol, spaces or hyphens.
