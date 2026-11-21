@@ -2393,3 +2393,29 @@ img {
     transform: none;
   }
 }
+
+/* JavaScript active states */
+
+.nav.active {
+  display: flex;
+}
+
+.demo-modal.active {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox.active {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+body.menu-open {
+  overflow-y: auto;
+}
+
+body.modal-open {
+  overflow-y: auto;
+}
