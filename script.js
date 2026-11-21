@@ -714,11 +714,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // =====================================
 
   // Replace with the owner's real WhatsApp number.
-  // Example format: 919876543210
-  const WHATSAPP_NUMBER = "91";
+  // Example format: 919336243712
+  const WHATSAPP_NUMBER = "919336243712";
 
   function openWhatsApp(message) {
-    if (WHATSAPP_NUMBER.includes("X")) {
+    if (WHATSAPP_NUMBER.includes("9336243712")) {
       alert("The owner needs to add the official WhatsApp number first.");
       return;
     }
