@@ -579,3 +579,369 @@ document.addEventListener("DOMContentLoaded", () => {
     "GAME STATION MIRZAPUR website initialized."
   );
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  "use strict";
+
+  // =====================================
+  // 1. REMOVE LOADING SCREEN
+  // =====================================
+
+  const loader = document.querySelector(".loader");
+
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add("loaded");
+
+      setTimeout(() => {
+        loader.style.display = "none";
+      }, 600);
+    }, 500);
+  }
+
+
+  // =====================================
+  // 2. MOBILE NAVIGATION MENU
+  // =====================================
+
+  const menuToggle = document.querySelector(".menu-toggle");
+  const nav = document.querySelector(".nav");
+
+  if (menuToggle && nav) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("active");
+
+      menuToggle.classList.toggle("active", isOpen);
+      menuToggle.setAttribute("aria-expanded", isOpen);
+
+      document.body.classList.toggle("menu-open", isOpen);
+    });
+
+    // Close menu when clicking a link
+    nav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("active");
+        menuToggle.classList.remove("active");
+
+        menuToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("menu-open");
+      });
+    });
+  }
+
+
+  // =====================================
+  // 3. SMOOTH SCROLLING
+  // =====================================
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", event => {
+      const targetId = link.getAttribute("href");
+
+      if (!targetId || targetId === "#") return;
+
+      const target = document.querySelector(targetId);
+
+      if (target) {
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    });
+  });
+
+
+  // =====================================
+  // 4. ACTIVE NAVIGATION LINK
+  // =====================================
+
+  const sections = document.querySelectorAll("main section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  function updateNavigation() {
+    let currentSection = "home";
+
+    sections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+
+      if (sectionTop <= 150) {
+        currentSection = section.id;
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.toggle(
+        "active",
+        link.getAttribute("href") === "#" + currentSection
+      );
+    });
+  }
+
+  window.addEventListener("scroll", updateNavigation);
+  updateNavigation();
+
+
+  // =====================================
+  // 5. REVEAL ANIMATION
+  // =====================================
+
+  const revealElements = document.querySelectorAll(".reveal");
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12
+    });
+
+    revealElements.forEach(element => {
+      observer.observe(element);
+    });
+  } else {
+    revealElements.forEach(element => {
+      element.classList.add("visible");
+    });
+  }
+
+
+  // =====================================
+  // 6. WHATSAPP BUTTONS
+  // =====================================
+
+  // Replace with the owner's real WhatsApp number.
+  // Example format: 919876543210
+  const WHATSAPP_NUMBER = "91";
+
+  function openWhatsApp(message) {
+    if (WHATSAPP_NUMBER.includes("X")) {
+      alert("The owner needs to add the official WhatsApp number first.");
+      return;
+    }
+
+    const url =
+      "https://wa.me/" +
+      WHATSAPP_NUMBER +
+      "?text=" +
+      encodeURIComponent(message);
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  const whatsappButton = document.querySelector("#whatsappButton");
+  const whatsappFloat = document.querySelector("#whatsappFloat");
+
+  if (whatsappButton) {
+    whatsappButton.addEventListener("click", () => {
+      openWhatsApp(
+        "Hello GAME STATION MIRZAPUR! I want to book a PS5 gaming session. Please share available slots and pricing."
+      );
+    });
+  }
+
+  if (whatsappFloat) {
+    whatsappFloat.addEventListener("click", event => {
+      event.preventDefault();
+
+      openWhatsApp(
+        "Hello GAME STATION MIRZAPUR! I want to check gaming session availability."
+      );
+    });
+  }
+
+
+  // =====================================
+  // 7. WEBSITE DEMO POPUP
+  // =====================================
+
+  const demoOpen = document.querySelector("#demoOpen");
+  const demoModal = document.querySelector("#demoModal");
+  const demoClose = document.querySelector("#demoClose");
+  const demoDismiss = document.querySelector("#demoDismiss");
+  const demoExplore = document.querySelector("#demoExplore");
+
+  function openDemo() {
+    if (!demoModal) return;
+
+    demoModal.classList.add("active", "open", "show");
+    demoModal.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("modal-open");
+  }
+
+  function closeDemo() {
+    if (!demoModal) return;
+
+    demoModal.classList.remove("active", "open", "show");
+    demoModal.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("modal-open");
+  }
+
+  if (demoOpen) {
+    demoOpen.addEventListener("click", openDemo);
+  }
+
+  if (demoClose) {
+    demoClose.addEventListener("click", closeDemo);
+  }
+
+  if (demoDismiss) {
+    demoDismiss.addEventListener("click", closeDemo);
+  }
+
+  if (demoExplore) {
+    demoExplore.addEventListener("click", () => {
+      closeDemo();
+
+      document.querySelector("#games").scrollIntoView({
+        behavior: "smooth"
+      });
+    });
+  }
+
+  if (demoModal) {
+    demoModal.addEventListener("click", event => {
+      if (event.target === demoModal) {
+        closeDemo();
+      }
+    });
+  }
+
+
+  // =====================================
+  // 8. GALLERY LIGHTBOX
+  // =====================================
+
+  const galleryItems = document.querySelectorAll("[data-gallery]");
+  const lightbox = document.querySelector("#lightbox");
+  const lightboxImage = document.querySelector("#lightboxImage");
+  const lightboxCaption = document.querySelector("#lightboxCaption");
+
+  const lightboxClose = document.querySelector("#lightboxClose");
+  const lightboxPrev = document.querySelector("#lightboxPrev");
+  const lightboxNext = document.querySelector("#lightboxNext");
+
+  const galleryImages = Array.from(galleryItems).map(item => {
+    return {
+      image: item.querySelector("img"),
+      caption: item.querySelector(".gallery-caption")
+    };
+  });
+
+  let currentImage = 0;
+
+  function showGalleryImage(index) {
+    if (!lightbox || !lightboxImage || galleryImages.length === 0) {
+      return;
+    }
+
+    currentImage =
+      (index + galleryImages.length) % galleryImages.length;
+
+    const selected = galleryImages[currentImage];
+
+    lightboxImage.src = selected.image.src;
+    lightboxImage.alt = selected.image.alt;
+
+    lightboxCaption.textContent =
+      selected.caption
+        ? selected.caption.textContent.trim()
+        : "";
+
+    lightbox.classList.add("active", "open", "show");
+    lightbox.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("lightbox-open");
+  }
+
+  function closeGallery() {
+    if (!lightbox) return;
+
+    lightbox.classList.remove("active", "open", "show");
+    lightbox.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("lightbox-open");
+  }
+
+  galleryItems.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      showGalleryImage(index);
+    });
+  });
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener("click", closeGallery);
+  }
+
+  if (lightboxPrev) {
+    lightboxPrev.addEventListener("click", () => {
+      showGalleryImage(currentImage - 1);
+    });
+  }
+
+  if (lightboxNext) {
+    lightboxNext.addEventListener("click", () => {
+      showGalleryImage(currentImage + 1);
+    });
+  }
+
+  if (lightbox) {
+    lightbox.addEventListener("click", event => {
+      if (event.target === lightbox) {
+        closeGallery();
+      }
+    });
+  }
+
+
+  // =====================================
+  // 9. BACK TO TOP BUTTON
+  // =====================================
+
+  const backTop = document.querySelector("#backTop");
+
+  if (backTop) {
+    window.addEventListener("scroll", () => {
+      backTop.classList.toggle("visible", window.scrollY > 400);
+    });
+
+    backTop.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  }
+
+
+  // =====================================
+  // 10. KEYBOARD ESCAPE
+  // =====================================
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeDemo();
+      closeGallery();
+
+      if (nav && menuToggle) {
+        nav.classList.remove("active");
+        menuToggle.classList.remove("active");
+
+        menuToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("menu-open");
+      }
+    }
+  });
+
+
+  console.log("Game Station Mirzapur JavaScript loaded successfully!");
+});
